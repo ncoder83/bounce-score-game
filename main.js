@@ -5,14 +5,15 @@ var context;
 var FPS = 20;//game frame rate
 var gs = 10;//grid size
 var ts = 20;//target size
-var px = 0; var py = 0;//player position
+var px = 10; var py = 15;//player position
 var dx = 1; var dy = 1;//player direction
-var target_count = 7;
+var target_count = 2;
 
 //when the window loads up
 window.onload = function(){
 
     loadCanvas();//load the game area
+    drawTargets();
     setInterval(runGame, 1000/FPS);
 };
 
@@ -25,30 +26,32 @@ function loadCanvas(){
 function runGame(){
 
     drawBackground();
-    
-    showBall();
+    drawBall();
     checkBoundaries();
    
 }
 
+function draw(context){
+    
+}
+
 function drawBackground(){
-    //draw background
     context.fillStyle = '#000000';    
     context.fillRect(0,0, canvas.width, canvas.height);
 }
 
-function loadTargets(){
+function drawTargets(){
 
     context.fillStyle = '#FF0000';
     for(var i = 0; i < target_count; i++){
-        var xx = Math.random() * gs | 0;
-        var yy = Math.random() * gs | 0;
-        context.fillRect(xx * gs, yy * gs, ts, ts);
+        var xx = Math.random() * gs ;
+        var yy = Math.random() * gs ;
+        context.fillRect(xx * gs, yy * gs, gs, gs);
     }
 }
 
 
-function showBall(){
+function drawBall(){
 
     context.fillStyle = '#FFFFFF';
     context.beginPath();
@@ -61,9 +64,11 @@ function showBall(){
 
 function checkBoundaries(){
     
-    if(px * gs >= canvas.width || px * gs <= 0)
+    if(px * gs >= canvas.width || px * gs <= 0){
         dx *= -1;
-    if(py * gs >= canvas.height || py * gs <= 0 )
+    }
+    if(py * gs >= canvas.height || py * gs <= 0){
         dy *= -1;
+    }
 
 }
